@@ -1,0 +1,65 @@
+# For more information: https://golangci-lint.run/
+version: "2"
+run:
+  timeout: 5m
+  modules-download-mode: readonly  
+linters:
+  enable:
+    # Enabled by Default
+    - govet
+    - staticcheck
+    - ineffassign
+    - errcheck
+    - unused
+    # Others
+    - unparam       # Reports unused function parameters.
+    - asciicheck    # Simple linter to check that your code does not contain non-ASCII identifiers
+    - bidichk       # Checks for dangerous unicode character sequences.
+    - containedctx  # Containedctx is a linter that detects struct contained context.Context field.
+    - contextcheck  # Check whether the function uses a non-inherited context
+    - copyloopvar   # A linter detects places where loop variables are copied.
+    - cyclop        # Checks function and package cyclomatic complexity.
+    - bodyclose     # Checks whether HTTP response body is closed successfully
+    - dupl          # Tool for code clone detection
+    - errname       # Checks that sentinel errors are prefixed with the Err and error types are suffixed with the Error.
+    - exptostd      # Detects functions from golang.org/x/exp/ that can be replaced by std functions.
+    - fatcontext    # Detects nested contexts in loops and function literals.
+    - funlen        # Checks for long functions.
+    - gocheckcompilerdirectives # Checks that go compiler directive comments (//go:) are valid.
+    - goconst
+    - gosec         # Inspects source code for security problems.
+    # - iface         # Detect the incorrect use of interfaces, helping developers avoid interface pollution
+    # Go interfaces generally belong in the package that uses values of the interface type, not the package that implements those values. The implementing package should return concrete (usually pointer or struct) types: that way, new methods can be added to implementations without requiring extensive refactoring.
+    - importas      # Enforces consistent import aliases
+    - misspell      # Finds commonly misspelled English words.
+    - mnd           # An analyzer to detect magic numbers.
+    - nestif        # Reports deeply nested if statements.
+    - paralleltest  # Detects missing usage of t.Parallel() method in your Go test.
+    - perfsprint    # Checks that fmt.Sprintf can be replaced with a faster alternative.
+    - prealloc      # Find slice declarations that could potentially be pre-allocated.
+    - sqlclosecheck # Checks that sql.Rows, sql.Stmt, sqlx.NamedStmt, pgx.Query are closed.
+    # - tagalign      # Check that struct tags are well aligned.
+    - unconvert     # Remove unnecessary type conversions.
+  settings:
+    goconst:
+      numbers: true
+      min-occurrences: 2
+      find-duplicates: true
+    cyclop:
+      # skip-tests: true
+      max-complexity: 10
+      package-average: 0
+  exclusions:
+    paths:
+      - "mocks/.*"
+
+# issues:
+#   allow-parallel-runners: true
+formatters:
+  enable:
+    - gofmt
+    - goimports
+    - swaggo
+  exclusions:
+    paths:
+      - "mocks/.*"

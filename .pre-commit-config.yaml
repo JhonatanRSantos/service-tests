@@ -1,0 +1,21 @@
+repos: 
+  - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+    rev: v2.15.0
+    hooks:
+      - id: pretty-format-golang
+        args:
+          - --autofix
+
+  - repo: https://github.com/golangci/golangci-lint
+    rev: v2.2.1
+    hooks:
+      - id: golangci-lint
+        entry: golangci-lint run
+        args:
+          - .
+          - ./app...
+          - --max-issues-per-linter=0
+          - --max-same-issues=0
+          - --new-from-rev=HEAD~1
+          - --allow-parallel-runners
+          - --config=.golangci.yaml
